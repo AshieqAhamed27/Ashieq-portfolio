@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashieq Ahamed — Product Portfolio | SpendGuard & ClientFlow AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0a0e1a;
+            --secondary-dark: #111827;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --primary-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(148, 163, 184, 0.08);
+            --border-hover: rgba(148, 163, 184, 0.2);
+            --gradient-spend: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --gradient-client: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #43e97b 100%);
+            --gradient-name: linear-gradient(135deg, #667eea 0%, #06b6d4 50%, #10b981 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: 
+                radial-gradient(ellipse at 0% 0%, rgba(102, 126, 234, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 100% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+        }
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .floating-orb {
+            position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.12;
+            animation: float 25s infinite ease-in-out; z-index: -1;
+        }
+        .orb-1 { width: 500px; height: 500px; background: #667eea; top: -150px; left: -150px; animation-delay: 0s; }
+        .orb-2 { width: 400px; height: 400px; background: #06b6d4; top: 40%; right: -150px; animation-delay: -8s; }
+        .orb-3 { width: 450px; height: 450px; background: #10b981; bottom: -150px; left: 25%; animation-delay: -16s; }
+        .orb-4 { width: 300px; height: 300px; background: #8b5cf6; top: 20%; left: 60%; animation-delay: -5s; opacity: 0.08; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -40px) scale(1.1); }
+            50% { transform: translate(-30px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 30px) scale(1.05); }
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(10, 14, 26, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-color); transition: all 0.3s;
+        }
+        nav.scrolled { background: rgba(10, 14, 26, 0.95); padding: 0.8rem 5%; }
+        .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-avatar {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: var(--gradient-name); display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.9rem; color: white;
+        }
+        .nav-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-secondary); text-decoration: none; font-weight: 500;
+            font-size: 0.9rem; transition: all 0.3s; position: relative;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 2px;
+            background: var(--accent-cyan); transition: width 0.3s; border-radius: 2px;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 10rem 5% 5rem; position: relative;
+        }
+        .hero-content { max-width: 1000px; position: relative; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.6rem 1.5rem; background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 50px;
+            font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out; font-weight: 500;
+        }
+        .hero-badge i { font-size: 0.7rem; }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 700; line-height: 1.05; margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+        .hero-name {
+            display: block; background: var(--gradient-name);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; font-weight: 800; letter-spacing: -0.02em;
+        }
+        .hero-subtitle {
+            display: block; color: var(--text-secondary); font-size: 0.6em;
+            font-weight: 500; margin-top: 0.5rem; letter-spacing: 0.05em; text-transform: uppercase;
+        }
+        .hero p {
+            font-size: 1.2rem; color: var(--text-secondary); max-width: 650px;
+            margin: 0 auto 3rem; animation: fadeInUp 0.8s ease-out 0.2s both; line-height: 1.7;
+        }
+        .hero-cta {
+            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+        .hero-social {
+            display: flex; justify-content: center; gap: 1rem; margin-top: 2.5rem;
+            animation: fadeInUp 0.8s ease-out 0.35s both;
+        }
+        .hero-social a {
+            width: 48px; height: 48px; border-radius: 14px; background: var(--card-bg);
+            border: 1px solid var(--border-color); color: var(--text-muted);
+            font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; transition: all 0.3s;
+        }
+        .hero-social a:hover {
+            color: var(--accent-cyan); border-color: var(--accent-cyan);
+            transform: translateY(-3px); box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
+        }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 4rem; margin-top: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        .stat-item { text-align: center; position: relative; }
+        .stat-item::after {
+            content: ''; position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+            width: 1px; height: 40px; background: var(--border-color);
+        }
+        .stat-item:last-child::after { display: none; }
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; font-weight: 700;
+            background: var(--gradient-name); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section { padding: 7rem 5%; max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 5rem; }
+        .section-label {
+            display: inline-block; font-size: 0.8rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; color: var(--accent-cyan); margin-bottom: 1rem;
+        }
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem;
+            font-weight: 700; margin-bottom: 1rem; line-height: 1.2;
+        }
+        .section-header p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; font-size: 1.05rem; line-height: 1.7; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+        .product-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 28px;
+            padding: 3rem; position: relative; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px); display: flex; flex-direction: column;
+        }
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        }
+        .product-card.spendguard::before { background: var(--gradient-spend); }
+        .product-card.clientflow::before { background: var(--gradient-client); }
+        .product-card:hover {
+            transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            border-color: var(--border-hover);
+        }
+        .product-glow {
+            position: absolute; top: -100px; right: -100px; width: 300px; height: 300px;
+            border-radius: 50%; filter: blur(80px); opacity: 0; transition: opacity 0.4s;
+        }
+        .spendguard .product-glow { background: rgba(102, 126, 234, 0.2); }
+        .clientflow .product-glow { background: rgba(79, 172, 254, 0.2); }
+        .product-card:hover .product-glow { opacity: 1; }
+
+        .product-header { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.5rem; }
+        .product-icon {
+            width: 56px; height: 56px; border-radius: 16px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;
+        }
+        .spendguard .product-icon { background: rgba(102, 126, 234, 0.12); color: #a5b4fc; }
+        .clientflow .product-icon { background: rgba(79, 172, 254, 0.12); color: #7dd3fc; }
+        .product-title-group h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .product-tagline { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+        .product-description { color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7; font-size: 0.95rem; }
+        .feature-list { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-bottom: 2.5rem; }
+        .feature-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--text-secondary); }
+        .feature-list i { font-size: 0.7rem; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
+        .spendguard .feature-list i { background: rgba(102, 126, 234, 0.15); color: #a5b4fc; }
+        .clientflow .feature-list i { background: rgba(79, 172, 254, 0.15); color: #7dd3fc; }
+        .product-footer { margin-top: auto; display: flex; flex-direction: column; gap: 1.2rem; }
+        .product-meta { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+        .meta-badge { padding: 0.35rem 0.9rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; border: 1px solid; }
+        .badge-mvp { background: rgba(245, 158, 11, 0.08); color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.2); }
+        .badge-live { background: rgba(16, 185, 129, 0.08); color: var(--accent-emerald); border-color: rgba(16, 185, 129, 0.2); }
+        .badge-beta { background: rgba(6, 182, 212, 0.08); color: var(--accent-cyan); border-color: rgba(6, 182, 212, 0.2); }
+        .product-link {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+            padding: 0.9rem 1.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; transition: all 0.3s; border: 1px solid;
+        }
+        .spendguard .product-link { background: rgba(102, 126, 234, 0.1); color: #a5b4fc; border-color: rgba(102, 126, 234, 0.25); }
+        .spendguard .product-link:hover { background: rgba(102, 126, 234, 0.2); transform: translateX(4px); }
+        .clientflow .product-link { background: rgba(79, 172, 254, 0.1); color: #7dd3fc; border-color: rgba(79, 172, 254, 0.25); }
+        .clientflow .product-link:hover { background: rgba(79, 172, 254, 0.2); transform: translateX(4px); }
+
+        .features-section { background: rgba(10, 14, 26, 0.5); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; }
+        .features-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 4rem; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 0.9rem 2.5rem; border-radius: 50px; border: 1px solid var(--border-color);
+            background: transparent; color: var(--text-secondary); font-weight: 600;
+            cursor: pointer; transition: all 0.3s; font-size: 0.9rem; font-family: 'Inter', sans-serif;
+        }
+        .tab-btn.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3); }
+        .tab-btn:hover:not(.active) { border-color: var(--text-muted); color: var(--text-primary); background: rgba(255, 255, 255, 0.03); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .feature-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 2.2rem; transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient-client); opacity: 0; transition: opacity 0.3s; }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); }
+        .feature-card i { font-size: 1.6rem; margin-bottom: 1.2rem; display: block; }
+        .feature-card h4 { font-size: 1.05rem; margin-bottom: 0.6rem; font-weight: 600; }
+        .feature-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
+
+        .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .tech-category { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.2rem; transition: all 0.3s; }
+        .tech-category:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+        .tech-category h4 { font-size: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; font-weight: 600; }
+        .tech-category h4 i { color: var(--accent-cyan); font-size: 1.1rem; }
+        .tech-items { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tech-item { padding: 0.4rem 0.9rem; background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.82rem; color: var(--text-secondary); transition: all 0.2s; }
+        .tech-item:hover { background: rgba(59, 130, 246, 0.12); color: var(--text-primary); }
+
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; }
+        .timeline::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: linear-gradient(to bottom, var(--primary-blue), var(--accent-cyan), var(--accent-emerald)); opacity: 0.3; }
+        .timeline-item { display: flex; justify-content: flex-end; padding-right: 3rem; position: relative; margin-bottom: 3.5rem; width: 50%; }
+        .timeline-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 3rem; margin-left: 50%; }
+        .timeline-dot { position: absolute; right: -7px; top: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-emerald); border: 3px solid var(--primary-dark); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+        .timeline-item:nth-child(even) .timeline-dot { right: auto; left: -7px; }
+        .timeline-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.8rem; max-width: 340px; transition: all 0.3s; }
+        .timeline-content:hover { border-color: var(--border-hover); transform: scale(1.02); }
+        .timeline-content h4 { font-size: 1.05rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .timeline-content p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
+        .timeline-date { font-size: 0.75rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .about-section { text-align: center; max-width: 800px; margin: 0 auto; }
+        .about-avatar {
+            width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-name);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800;
+            color: white; margin: 0 auto 2rem; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+        .about-section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin-bottom: 1rem; }
+        .about-section p { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; }
+        .about-contact { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
+        .about-contact a {
+            display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.5rem;
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px;
+            color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+            transition: all 0.3s;
+        }
+        .about-contact a:hover { border-color: var(--accent-cyan); color: var(--text-primary); transform: translateY(-2px); }
+        .about-contact a i { font-size: 1.1rem; }
+
+        .cta-section { text-align: center; padding: 7rem 5%; background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%); position: relative; }
+        .cta-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; }
+        .cta-section p { color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 1.05rem; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; text-decoration: none;
+            transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.6rem;
+            font-size: 0.95rem; font-family: 'Inter', sans-serif; cursor: pointer; border: none;
+        }
+        .btn-primary { background: var(--gradient-name); color: white; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4); }
+        .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { border-color: var(--text-muted); background: rgba(255, 255, 255, 0.05); transform: translateY(-3px); }
+        .btn-whatsapp { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.25); }
+        .btn-whatsapp:hover { background: rgba(16, 185, 129, 0.2); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15); }
+
+        footer { text-align: center; padding: 4rem 5%; border-top: 1px solid var(--border-color); }
+        .footer-brand { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; background: var(--gradient-name); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.5rem; }
+        .social-links { display: flex; justify-content: center; gap: 1.2rem; margin-bottom: 2rem; }
+        .social-links a { width: 44px; height: 44px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.3s; }
+        .social-links a:hover { color: var(--accent-cyan); border-color: var(--accent-cyan); transform: translateY(-3px); }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--text-primary); }
+        .copyright { color: var(--text-muted); font-size: 0.85rem; }
+
+        @media (max-width: 1024px) { .features-grid, .tech-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            .products-grid, .features-grid, .tech-grid { grid-template-columns: 1fr; }
+            .feature-list { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 2rem; }
+            .stat-item::after { display: none; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .timeline::before { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) { width: 100%; margin-left: 0; padding-left: 3.5rem; padding-right: 0; justify-content: flex-start; }
+            .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: 14px; right: auto; }
+            section { padding: 4rem 5%; }
+            .section-header h2 { font-size: 2rem; }
+            .about-contact { flex-direction: column; align-items: center; }
+        }
+
+        .scroll-reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
+        .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
+        .scroll-reveal-delay-1 { transition-delay: 0.1s; }
+        .scroll-reveal-delay-2 { transition-delay: 0.2s; }
+        .scroll-reveal-delay-3 { transition-delay: 0.3s; }
+        .scroll-reveal-delay-4 { transition-delay: 0.4s; }
+
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.4; }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-animation"></div>
+    <div class="noise-overlay"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+
+    <nav id="navbar">
+        <div class="nav-brand">
+            <div class="nav-avatar">AA</div>
+            <span class="nav-name">Ashieq Ahamed</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#products">Products</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#tech">Tech Stack</a></li>
+            <li><a href="#status">Status</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-circle"></i>
+                Building AI-Powered SaaS Products
+            </div>
+            <h1>
+                <span class="hero-name">Ashieq Ahamed</span>
+                <span class="hero-subtitle">Product Developer & SaaS Founder</span>
+            </h1>
+            <p>Building two production-ready platforms — SpendGuard for AI cost governance and ClientFlow AI for freelancer business automation. Real payments, real AI, real impact.</p>
+            <div class="hero-cta">
+                <a href="https://invoicepro-lime.vercel.app/" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i>
+                    ClientFlow AI
+                </a>
+                <a href="https://ai-cost-optimization.vercel.app/" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-external-link-alt"></i>
+                    SpendGuard
+                </a>
+            </div>
+            <div class="hero-social">
+                <a href="https://github.com/AshieqAhamed27" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ashieq-ahamed-s-a-1a37332a8/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://wa.me/919080963704" target="_blank" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:ashieqahamed4@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Live Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Core Features</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Real</div>
+                    <div class="stat-label">Payments</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">AI</div>
+                    <div class="stat-label">Powered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="section-header scroll-reveal">
+            <span class="section-label">Products</span>
+            <h2>What I'm Building</h2>
+            <p>Two distinct platforms solving real problems with AI, real payment flows, and production-ready architecture.</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card spendguard scroll-reveal">
+                <div class="product-glow"></div>
+                <div class="product-header">
+                    <div class="product-icon"><i class="fas fa-shield-halved"></i></div>
+                    <div class="product-title-group">
+                        <h3>SpendGuard</h3>
+                        <p class="product-tagline">AI Cost Governance & Spend Control</p>
+                    </div>
+                </div>
+                <p class="product-description">Enterprise-grade AI cost governance platform that helps companies understand, control, and prove savings on AI tool spending. Import billing data, analyze spend patterns, and build audit-ready reports with verified evidence.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check"></i> AI Cost Audit Reports</li>
+                    <li><i class="fas fa-check"></i> Multi-Provider Billing Import</li>
+                    <li><i class="fas fa-check"></i> Spend Analytics Dashboard</li>
+                    <li><i class="fas fa-check"></i> Governance & Approvals</li>
+                    <li><i class="fas fa-check"></i> Proof Center with Evidence</li>
+                    <li><i class="fas fa-check"></i> Pilot Workflow Management</li>
+                </ul>
+                <div class="product-footer">
+                    <div class="product-meta">
+                        <span class="meta-badge badge-mvp">Early MVP</span>
+                        <span class="meta-badge badge-beta">Free Early Access</span>
+                        <span class="meta-badge badge-live">Razorpay Ready</span>
+                    </div>
+                    <a href="https://ai-cost-optimization.vercel.app/" target="_blank" class="product-link">
+                        Visit SpendGuard <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="product-card clientflow scroll-reveal scroll-reveal-delay-1">
+                <div class="product-glow"></div>
+                <div class="product-header">
+                    <div class="product-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="product-title-group">
+                        <h3>ClientFlow AI</h3>
+                        <p class="product-tagline">AI Business Workflow for Freelancers</p>
+                    </div>
+                </div>
+                <p class="product-description">All-in-one business workflow platform for freelancers and small teams. Manage the complete client journey from lead generation to payment collection — proposals, invoices, follow-ups, and delivery tracking in one unified dashboard.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check"></i> Business Autopilot</li>
+                    <li><i class="fas fa-check"></i> AI Proposal Writing</li>
+                    <li><i class="fas fa-check"></i> Razorpay & UPI Payments</li>
+                    <li><i class="fas fa-check"></i> Client Workroom</li>
+                    <li><i class="fas fa-check"></i> Money GPS / Cashflow</li>
+                    <li><i class="fas fa-check"></i> Recurring Invoices</li>
+                </ul>
+                <div class="product-footer">
+                    <div class="product-meta">
+                        <span class="meta-badge badge-live">Production Ready</span>
+                        <span class="meta-badge badge-live">Real Payments</span>
+                        <span class="meta-badge badge-beta">7-8/10 Maturity</span>
+                    </div>
+                    <a href="https://invoicepro-lime.vercel.app/" target="_blank" class="product-link">
+                        Visit ClientFlow AI <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features-section">
+        <div class="section-header scroll-reveal">
+            <span class="section-label">Capabilities</span>
+            <h2>Feature Deep Dive</h2>
+            <p>Explore the core capabilities that make each product unique and valuable.</p>
+        </div>
+        <div class="features-tabs scroll-reveal">
+            <button class="tab-btn active" onclick="switchTab('spendguard-features', this)">SpendGuard</button>
+            <button class="tab-btn" onclick="switchTab('clientflow-features', this)">ClientFlow AI</button>
+        </div>
+        <div id="spendguard-features" class="tab-content active">
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal"><i class="fas fa-file-invoice-dollar" style="color: #a5b4fc;"></i><h4>AI Cost Audit</h4><p>Create comprehensive audit reports for AI usage and spending across all departments and tools.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-1"><i class="fas fa-database" style="color: #a5b4fc;"></i><h4>Real Data Import</h4><p>Import CSV billing data from OpenAI, Anthropic, AWS, Azure, GCP, and generic usage files.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-2"><i class="fas fa-chart-pie" style="color: #a5b4fc;"></i><h4>Spend Dashboard</h4><p>Visualize spend, requests, savings, proof status, and pilot progress in real-time.</p></div>
+                <div class="feature-card scroll-reveal"><i class="fas fa-gavel" style="color: #a5b4fc;"></i><h4>Governance Engine</h4><p>Role-based approvals, departments, cost centers, audit logs, and decision tracking.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-1"><i class="fas fa-shield-halved" style="color: #a5b4fc;"></i><h4>Proof Center</h4><p>Track baseline vs optimized spend, verify monthly savings, and collect evidence with customer permission.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-2"><i class="fas fa-flask" style="color: #a5b4fc;"></i><h4>Pilot Workflow</h4><p>Onboard early users with free access, collect feedback, track proof, and build case studies.</p></div>
+            </div>
+        </div>
+        <div id="clientflow-features" class="tab-content">
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal"><i class="fas fa-robot" style="color: #7dd3fc;"></i><h4>Business Autopilot</h4><p>Step-by-step workflow guidance from lead discovery to payment collection. User-controlled, not blind automation.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-1"><i class="fas fa-file-signature" style="color: #7dd3fc;"></i><h4>AI Proposal Writer</h4><p>Generate professional proposals with AI assistance using OpenAI and Anthropic Claude backends.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-2"><i class="fas fa-credit-card" style="color: #7dd3fc;"></i><h4>Payment Collection</h4><p>Full Razorpay integration — subscriptions, orders, invoice links, public checkout, and webhook verification.</p></div>
+                <div class="feature-card scroll-reveal"><i class="fas fa-users" style="color: #7dd3fc;"></i><h4>Client Workroom</h4><p>Unified workspace for client communication, project delivery, and team collaboration.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-1"><i class="fas fa-money-bill-trend-up" style="color: #7dd3fc;"></i><h4>Money GPS</h4><p>Cashflow insights, payment tracking, recurring invoices, and business growth analytics.</p></div>
+                <div class="feature-card scroll-reveal scroll-reveal-delay-2"><i class="fas fa-server" style="color: #7dd3fc;"></i><h4>DevOps Delivery Kit</h4><p>VPS checklists, GitHub delivery notes, deployment handover flow, and server health checks for developers.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech">
+        <div class="section-header scroll-reveal">
+            <span class="section-label">Technology</span>
+            <h2>Tech Stack</h2>
+            <p>Modern, scalable architecture powering both platforms.</p>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-category scroll-reveal"><h4><i class="fas fa-brain"></i> AI & LLM</h4><div class="tech-items"><span class="tech-item">OpenAI GPT</span><span class="tech-item">Anthropic Claude</span><span class="tech-item">AI Support Chat</span><span class="tech-item">Business Insights</span><span class="tech-item">Price Suggestions</span></div></div>
+            <div class="tech-category scroll-reveal scroll-reveal-delay-1"><h4><i class="fas fa-credit-card"></i> Payments</h4><div class="tech-items"><span class="tech-item">Razorpay India</span><span class="tech-item">Razorpay International</span><span class="tech-item">UPI Integration</span><span class="tech-item">Webhook Verification</span><span class="tech-item">Subscriptions</span></div></div>
+            <div class="tech-category scroll-reveal scroll-reveal-delay-2"><h4><i class="fas fa-cloud"></i> Cloud & Storage</h4><div class="tech-items"><span class="tech-item">Cloudinary</span><span class="tech-item">AWS (planned)</span><span class="tech-item">Azure (planned)</span><span class="tech-item">GCP (planned)</span><span class="tech-item">Document Storage</span></div></div>
+            <div class="tech-category scroll-reveal"><h4><i class="fas fa-envelope"></i> Communications</h4><div class="tech-items"><span class="tech-item">Email/SMTP</span><span class="tech-item">Resend API</span><span class="tech-item">WhatsApp (planned)</span><span class="tech-item">Follow-up Automation</span></div></div>
+            <div class="tech-category scroll-reveal scroll-reveal-delay-1"><h4><i class="fas fa-code-branch"></i> DevOps</h4><div class="tech-items"><span class="tech-item">GitHub Integration</span><span class="tech-item">Docker Support</span><span class="tech-item">VPS Checklists</span><span class="tech-item">SSL & Backups</span><span class="tech-item">Deployment Flow</span></div></div>
+            <div class="tech-category scroll-reveal scroll-reveal-delay-2"><h4><i class="fas fa-chart-line"></i> Analytics</h4><div class="tech-items"><span class="tech-item">Billing Analytics</span><span class="tech-item">Usage Tracking</span><span class="tech-item">Savings Reports</span><span class="tech-item">Growth Metrics</span><span class="tech-item">Audit Logs</span></div></div>
+        </div>
+    </section>
+
+    <section id="status">
+        <div class="section-header scroll-reveal">
+            <span class="section-label">Roadmap</span>
+            <h2>Product Status</h2>
+            <p>Current development stage and roadmap for both platforms.</p>
+        </div>
+        <div class="timeline scroll-reveal">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content"><div class="timeline-date">Q1 2024</div><h4>SpendGuard MVP</h4><p>Core architecture, billing import, and dashboard built. Early access program launched.</p></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content"><div class="timeline-date">Q2 2024</div><h4>ClientFlow AI v1.0</h4><p>Full client workflow, Razorpay payments, and AI features deployed. Production ready.</p></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content"><div class="timeline-date">Current</div><h4>Proof Building Phase</h4><p>Collecting real user data, verifying savings, and refining core workflows for both products.</p></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background: var(--accent-amber); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);"></div>
+                <div class="timeline-content"><div class="timeline-date">Next</div><h4>Scale & Polish</h4><p>Onboarding improvements, documentation, stronger automation, and production monitoring.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="padding-top: 5rem;">
+        <div class="about-section scroll-reveal">
+            <div class="about-avatar">AA</div>
+            <h3>Ashieq Ahamed</h3>
+            <p>I'm a product developer building AI-powered SaaS platforms that solve real business problems. With SpendGuard, I'm helping enterprises control AI costs and prove savings. With ClientFlow AI, I'm giving freelancers and small teams a complete business workflow system. Both products feature real payment integrations, AI capabilities, and production-ready architecture.</p>
+            <div class="about-contact">
+                <a href="https://github.com/AshieqAhamed27" target="_blank"><i class="fab fa-github" style="color: #f0f6fc;"></i>GitHub</a>
+                <a href="https://www.linkedin.com/in/ashieq-ahamed-s-a-1a37332a8/" target="_blank"><i class="fab fa-linkedin-in" style="color: #0a66c2;"></i>LinkedIn</a>
+                <a href="https://wa.me/919080963704" target="_blank"><i class="fab fa-whatsapp" style="color: #25d366;"></i>WhatsApp</a>
+                <a href="mailto:ashieqahamed4@gmail.com"><i class="fas fa-envelope" style="color: var(--accent-cyan);"></i>Email</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta-section">
+        <div class="scroll-reveal">
+            <span class="section-label">Get In Touch</span>
+            <h2>Let's Build Something Together</h2>
+            <p>Interested in early access, partnerships, or learning more about these products?</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/919080963704" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i>Chat on WhatsApp</a>
+                <a href="https://www.linkedin.com/in/ashieq-ahamed-s-a-1a37332a8/" target="_blank" class="btn btn-secondary"><i class="fab fa-linkedin-in"></i>Connect on LinkedIn</a>
+                <a href="https://github.com/AshieqAhamed27" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i>View on GitHub</a>
+                <a href="https://invoicepro-lime.vercel.app/" target="_blank" class="btn btn-primary"><i class="fas fa-rocket"></i>Try ClientFlow AI</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-brand">Ashieq Ahamed</div>
+        <div class="social-links">
+            <a href="https://github.com/AshieqAhamed27" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/ashieq-ahamed-s-a-1a37332a8/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/919080963704" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:ashieqahamed4@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="https://invoicepro-lime.vercel.app/" target="_blank">ClientFlow AI</a>
+            <a href="https://ai-cost-optimization.vercel.app/" target="_blank">SpendGuard</a>
+            <a href="https://www.linkedin.com/in/ashieq-ahamed-s-a-1a37332a8/" target="_blank">LinkedIn</a>
+            <a href="https://wa.me/919080963704" target="_blank">WhatsApp</a>
+            <a href="https://github.com/AshieqAhamed27" target="_blank">GitHub</a>
+        </div>
+        <p class="copyright"> 2026 Ashieq Ahamed. Built with focus on real problems and honest solutions.</p>
+    </footer>
+
+    <script>
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 80) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouseX = 0, mouseY = 0;
+
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.radius = Math.random() * 1.5 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                const dx = mouseX - this.x, dy = mouseY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    const force = (150 - dist) / 150;
+                    this.vx -= (dx / dist) * force * 0.02;
+                    this.vy -= (dy / dist) * force * 0.02;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(148, 163, 184, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(148, 163, 184, ${0.08 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawConnections();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.background = 'rgba(10, 14, 26, 0.98)';
+            navLinks.style.padding = '2rem';
+            navLinks.style.gap = '1.5rem';
+            navLinks.style.borderBottom = '1px solid var(--border-color)';
+        }
+    </script>
+</body>
+</html>
